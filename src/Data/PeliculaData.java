@@ -152,8 +152,8 @@ public class PeliculaData {
     }
 
     public void insertar(CirculeDoubleListPeliculas lista) {
-        Nodo tail = lista.getTailNode();
-        Nodo tempPtr = lista.getHeadNode();
+        Nodo tail = lista.getTail();
+        Nodo tempPtr = lista.getHead();
         while (tempPtr != tail) {
             if (tempPtr.getDato().getGender() == 1000) {
                 listaDrama.add(tempPtr.getDato());
