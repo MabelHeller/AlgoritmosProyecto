@@ -14,97 +14,98 @@ import Domain.Pelicula;
  */
 public class CirculeDoubleListPeliculas {
 
-    private Nodo headNode;
-    private Nodo tailNode;
-    private Nodo tempPtr;
+    private Nodo head;
+    private Nodo tail;
+    private Nodo node;
     private int size;
 
     public CirculeDoubleListPeliculas() {
-        this.headNode = null;
-        this.tailNode = null;
+        this.head = null;
+        this.tail = null;
         this.size = 0;
-    }
+    }//constructor
 
     public void insertInOrder(Pelicula pelicula) {
         Nodo newPtr = new Nodo();
-        Nodo tempPtr = this.getHeadNode();
+        Nodo node = this.getHead();
         newPtr.setDato(pelicula);
-        while (tempPtr != null && tempPtr.getDato().getTitle().compareTo(newPtr.getDato().getTitle()) < 0) {
-            if (tempPtr == this.getTailNode()) {
+        while (node != null && node.getDato().getTitle().compareTo(newPtr.getDato().getTitle()) < 0) {
+            if (node == this.getTail()) {
                 break;
             }//if para saber si llego al final de la lista
-            tempPtr = tempPtr.getNext();
+            node = node.getNext();
         }//while para recorrer la lista
         //preguntar porque se detuvo
         if (getSize() == 0) {
-            this.setHeadNode(newPtr);
-            this.setTailNode(newPtr);
-            this.getTailNode().setNext(this.getHeadNode());
-            this.getHeadNode().setPreviousPtr(this.getTailNode());
+            this.setHead(newPtr);
+            this.setTail(newPtr);
+            this.getTail().setNext(this.getHead());
+            this.getHead().setPreviousPtr(this.getTail());
         } else {
-            if (tempPtr == this.getHeadNode()) {
-                if (tempPtr.getDato().getTitle().compareTo(newPtr.getDato().getTitle()) > 0) {
-                    newPtr.setNext(this.getHeadNode());
-                    newPtr.setPreviousPtr(this.getTailNode());
-                    this.getHeadNode().setPreviousPtr(newPtr);
-                    this.setHeadNode(newPtr);
-                    this.getTailNode().setNext(this.getHeadNode());
-                    this.getHeadNode().setPreviousPtr(this.getTailNode());
+            if (node == this.getHead()) {
+                if (node.getDato().getTitle().compareTo(newPtr.getDato().getTitle()) > 0) {
+                    newPtr.setNext(this.getHead());
+                    newPtr.setPreviousPtr(this.getTail());
+                    this.getHead().setPreviousPtr(newPtr);
+                    this.setHead(newPtr);
+                    this.getTail().setNext(this.getHead());
+                    this.getHead().setPreviousPtr(this.getTail());
                 } else {
-                    newPtr.setPreviousPtr(this.getHeadNode());
-                    newPtr.setNext(this.getTailNode());
-                    this.getHeadNode().setNext(newPtr);
-                    this.setTailNode(newPtr);
-                    this.getTailNode().setNext(this.getHeadNode());
-                    this.getHeadNode().setPreviousPtr(this.getTailNode());
+                    newPtr.setPreviousPtr(this.getHead());
+                    newPtr.setNext(this.getTail());
+                    this.getHead().setNext(newPtr);
+                    this.setTail(newPtr);
+                    this.getTail().setNext(this.getHead());
+                    this.getHead().setPreviousPtr(this.getTail());
                 }//if si el nuevo nodo va antes o despues de head
             } else {
-                if (tempPtr == this.getTailNode() && tempPtr.getDato().getTitle().compareTo(newPtr.getDato().getTitle()) < 0) {
-                    newPtr.setPreviousPtr(this.getTailNode());
-                    newPtr.setNext(this.getHeadNode());
-                    this.getTailNode().setNext(newPtr);
-                    this.setTailNode(newPtr);
-                    this.getHeadNode().setPreviousPtr(this.getTailNode());
-                    this.getTailNode().setNext(this.getHeadNode());
+                if (node == this.getTail() && node.getDato().getTitle().compareTo(newPtr.getDato().getTitle()) < 0) {
+                    newPtr.setPreviousPtr(this.getTail());
+                    newPtr.setNext(this.getHead());
+                    this.getTail().setNext(newPtr);
+                    this.setTail(newPtr);
+                    this.getHead().setPreviousPtr(this.getTail());
+                    this.getTail().setNext(this.getHead());
                 } else {
-                    tempPtr.getPreviousPtr().setNext(newPtr);
-                    newPtr.setPreviousPtr(tempPtr.getPreviousPtr());
-                    newPtr.setNext(tempPtr);
-                    tempPtr.setPreviousPtr(newPtr);
+                    node.getPreviousPtr().setNext(newPtr);
+                    newPtr.setPreviousPtr(node.getPreviousPtr());
+                    newPtr.setNext(node);
+                    node.setPreviousPtr(newPtr);
                 }//if para saber si el nuevo nodo va despues de tail o esta en medio de la lista
             }//if el en que posicion va el nuevo nodo
         }//if la lista esta llena o no
         this.setSize(this.getSize() + 1);
     }//fin method
-
+    
+  
     public void printList() {
-        Nodo temp = this.getHeadNode();
-        System.out.print(this.getTailNode().getDato().getTitle() + "<-->");
+        Nodo temp = this.getHead();
+        System.err.print(this.getTail().getDato().getTitle() + "<-->");
         if (this.getSize() > 0) {
-            while (temp != this.getTailNode()) {
-                System.out.print(temp.getDato().getTitle() + "<-->");
+            while (temp != this.getTail()) {
+                System.err.print(temp.getDato().getTitle() + "<-->");
                 temp = temp.getNext();
-                if (temp == this.getTailNode()) {
-                    System.out.print(temp.getDato().getTitle() + "<-->");
+                if (temp == this.getTail()) {
+                    System.err.print(temp.getDato().getTitle() + "<-->");
                 }//if
             }//while
         }//if
     }//end Method
 
-    public Nodo getHeadNode() {
-        return headNode;
+    public Nodo getHead() {
+        return head;
     }
 
-    public void setHeadNode(Nodo headNode) {
-        this.headNode = headNode;
+    public void setHead(Nodo head) {
+        this.head = head;
     }
 
-    public Nodo getTailNode() {
-        return tailNode;
+    public Nodo getTail() {
+        return tail;
     }
 
-    public void setTailNode(Nodo tail) {
-        this.tailNode = tailNode;
+    public void setTail(Nodo tail) {
+        this.tail = tail;
     }
 
     public int getSize() {
@@ -115,17 +116,17 @@ public class CirculeDoubleListPeliculas {
         this.size = size;
     }
 
-    public Nodo getTempPtr() {
-        return tempPtr;
+    public Nodo getNode() {
+        return node;
     }
 
-    public void setTempPtr(Nodo tempPtr) {
-        this.tempPtr = tempPtr;
+    public void setNode(Nodo node) {
+        this.node = node;
     }
 
     @Override
     public String toString() {
-        return "CirculeDoubleListPeliculas{" + "head=" + headNode + ", tail=" + tailNode + ", node=" + tempPtr + ", size=" + size + '}';
+        return "CirculeDoubleListPeliculas{" + "head=" + head + ", tail=" + tail + ", node=" + node + ", size=" + size + '}';
     }
 
 }
